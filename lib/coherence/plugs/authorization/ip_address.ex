@@ -70,7 +70,7 @@ defmodule Coherence.Authentication.IpAddress do
   end
 
   def call(conn, opts) do
-    ip = conn.peer |> elem(0)
+    ip = conn.remote_ip
     conn
     |> verify_ip(ip, opts)
     |> fetch_user_data(opts)
