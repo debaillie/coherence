@@ -230,7 +230,7 @@ defmodule Coherence.Schema do
 
         def validate_coherence(changeset, params) do
           changeset
-          |> validate_length(:password, min: 4)
+          |> validate_length(:password, min: 8)
           |> validate_password(params)
         end
 
