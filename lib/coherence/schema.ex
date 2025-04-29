@@ -230,7 +230,8 @@ defmodule Coherence.Schema do
 
         def validate_coherence(changeset, params) do
           changeset
-          |> validate_length(:password, min: 8)
+          |> validate_length(:password, min: 12)
+          |> validate_format(:password, ~r/\D/, message: "must have at least one non-numeric character")
           |> validate_password(params)
         end
 
