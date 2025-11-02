@@ -128,19 +128,22 @@ defmodule Coherence.Authentication.Session do
     Code.ensure_loaded module
 
     if function_exported?(module, :login_callback, 1) do
+      IO.inspect(module, label: "COHERENCE function exported for")
       &module.login_callback/1
     else
+      IO.inspect("COHERENCE using default login_callback")
       &Coherence.SessionController.login_callback/1
     end
+    |> IO.inspect(label: "COHERENCE default_login_callback")
   end
 
   @doc false
   def init(opts) do
-    login = case opts[:login] do
+    login = case IO.inspect(opts[:login], label: "COHERENCE opts[:login]") do
       true  -> default_login_callback
       fun when is_function(fun) -> fun
       other ->
-        case opts[:protected] do
+        case IO.inspect(opts[:protected], label: "COHERENCE opts[:protected]") do
           nil -> other
           true -> default_login_callback
           other -> other

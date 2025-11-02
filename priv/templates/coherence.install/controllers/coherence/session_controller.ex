@@ -191,6 +191,7 @@ defmodule <%= base %>.Coherence.SessionController do
   Render the login form.
   """
   def login_callback(conn) do
+    IO.inspect(conn, label: "COHERENCE login_callback called")
     new(conn, %{})
     |> halt
   end
