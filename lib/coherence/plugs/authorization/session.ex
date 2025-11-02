@@ -215,7 +215,7 @@ defmodule Coherence.Authentication.Session do
     IO.inspect("COHERENCE asserting login")
     assign_user_data(conn, user_data, assign_key)
   end
-  defp assert_login(conn, _, _), do
+  defp assert_login(conn, _, _) do
     IO.inspect("COHERENCE asserting login 2")
     conn
   end
