@@ -168,9 +168,13 @@ defmodule Coherence.Authentication.Session do
     unless get_authenticated_user(conn) do
       conn
       |> get_session_data
+      |> IO.inspect(label: "COHERENCE session data")
       |> verify_auth_key(opts, opts[:store])
+      |> IO.inspect(label: "COHERENCE auth key verified")
       |> verify_rememberable(opts)
+      |> IO.inspect(label: "COHERENCE rememberable verified")
       |> assert_login(opts[:login], opts[:assigns_key])
+      |> IO.inspect(label: "COHERENCE after assert login")
     else
       conn
     end
