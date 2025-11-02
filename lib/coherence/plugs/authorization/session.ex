@@ -165,12 +165,11 @@ defmodule Coherence.Authentication.Session do
 
   @doc false
   def call(conn, opts) do
+    IO.inspect(opts, label: "COHERENCE Session opts")
     unless get_authenticated_user(conn) do
       conn
       |> get_session_data
-      |> IO.inspect(label: "COHERENCE session data")
       |> verify_auth_key(opts, opts[:store])
-      |> IO.inspect(label: "COHERENCE auth key verified")
       |> verify_rememberable(opts)
       |> IO.inspect(label: "COHERENCE rememberable verified")
       |> assert_login(opts[:login], opts[:assigns_key])
@@ -208,11 +207,16 @@ defmodule Coherence.Authentication.Session do
     do: {conn, store.get_user_data({auth_key, db_model, id_key})}
 
   defp assert_login({conn, nil}, login, _) when is_function(login) do
+    IO.inspect(login, label: "COHERENCE asserting login")
     put_session(conn, "user_return_to", Path.join(["/" | conn.path_info]))
     |> login.()
   end
   defp assert_login({conn, user_data}, _, assign_key) do
+    IO.inspect("COHERENCE asserting login")
     assign_user_data(conn, user_data, assign_key)
   end
-  defp assert_login(conn, _, _), do: conn
+  defp assert_login(conn, _, _), do
+    IO.inspect("COHERENCE asserting login 2")
+    conn
+  end
 end
